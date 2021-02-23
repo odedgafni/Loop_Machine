@@ -1,57 +1,101 @@
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import React, { useState, useEffect } from 'react';
+
 import Pad from './components/Pad';
-import sounds from './sounds';
 import TransportButtons from './components/TransportButtons';
+
+import { sounds as INITIAL_STATE } from './sounds';
 
 function App() {
 
-  const [activeLoops, setActiveLoops] = useState([]);
+  const [loops, setLoops] = useState(INITIAL_STATE);
+  const [recordings, setRecordings] = useState([])
 
+  const [isRecording, setIsRecording] = useState(false)
+  const [isPlaying, setIsPlaying] = useState(false);
+  const [startCycle, setStartCycle] = useState(false);
+
+  // Keeps playing loops whenever 'startCycle' is triggered
   useEffect(() => {
+    playLoops(loops)
+  }, [startCycle])
 
-  }, [activeLoops])
-
-  const isActive = (sound) => {
-    return activeLoops.find(loop => loop.id === sound.id)
-  }
-
-  const handlePadClick = (sound) => {
-    let newActiveLoops = []
-
-    // If the sound is already active remove the loop from active list
-    if (isActive(sound)) {
-      newActiveLoops = activeLoops.filter(loop => loop.id !== sound.id)
-      setActiveLoops(newActiveLoops)
-
-      // if not active add new sound to active loops
-    } else {
-      newActiveLoops = [...activeLoops, sound]
-      setActiveLoops(newActiveLoops)
+  // Play or Stop loops if there is a change in 'isPlaying' State
+  useEffect(() => {
+    if (isPlaying) {
+      playLoops(loops)
     }
-  }
+    else {
+      stopAllLoops()
+      setIsRecording(false)
+    }
+  }, [isPlaying])
 
-  const playAll = () => {
+
+  const playLoops = (loops) => {
+    // Filtering only the active loops
+    const activeLoops = loops.filter(loop => loop.isActive === true)
+    // If recording add the active loops of the current cycle to 'recordings'
+    isRecording && setRecordings([...recordings, activeLoops])
+
     activeLoops.forEach(loop => {
-      
+      loop.audio.play()
+      loop.audio.onended = () => setStartCycle(!startCycle)
     })
   }
-  const stopAll = () => {
 
+  const stopAllLoops = () => {
+    loops.forEach(loop => {
+      loop.audio.pause()
+      loop.audio.currentTime = 0
+    })
+  }
+
+  // Mapping through the entire state to change the 'isActive' property of the selected loop/sound
+  const handlePadClick = (sound) => {
+    setLoops(loops.map(loop => loop.id === sound.id ?
+      { ...loop, isActive: !loop.isActive } : loop))
+  }
+
+  // The function recieves as a param the current recording cycle.
+  // Each cycle it plays the relevant loops and calls itself until reaches the last loop
+  const playOneRecordingCycle = (cycle) => {
+    if (cycle - 1 < recordings.length)
+      recordings[cycle - 1].forEach(loop => {
+        loop.audio.play()
+        console.log(cycle, recordings.length)
+        loop.audio.onended = () => playOneRecordingCycle(cycle + 1)
+      })
   }
 
   return (
     <div className="App">
       <div className="container mt-5">
         <div className="row justify-content-center text-center">
-          {sounds.map(sound =>
-            <Pad key={sound.id} sound={sound} handlePadClick={handlePadClick} />
+          {loops.map(sound =>
+            <Pad
+              key={sound.id}
+              sound={sound}
+              handlePadClick={handlePadClick} />
           )}
         </div>
-        <TransportButtons playAll={playAll} stopAll={stopAll} />
+        <div className="row justify-content-center text-center">
+          <TransportButtons
+            setIsPlaying={setIsPlaying}
+            isRecording={isRecording}
+            setIsRecording={setIsRecording}
+            recordings={recordings} />
+        </div>
+        <div className="row">
+          {!isRecording && recordings.length > 0 &&
+            <button className="t-btn btn btn-outline-info col-4 offset-4 mt-3"
+              onClick={() => playOneRecordingCycle(1)}>
+              <i className="fas fa-play"></i> Play Recording
+            </button>}
+        </div>
       </div>
-    </div>
+    </div >
   );
 }
 

@@ -5,4 +5,4 @@ const Constants = {
   pad_off: "pad_off"
 }
 
-export default Constants
+export default Constants;

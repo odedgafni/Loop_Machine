@@ -25,9 +25,9 @@ These components has no logic except of some dynamic styling and 'onClick' event
 
 * Whenever a user clicks on the play button, all sounds/loops with the property `isActive = true` will play once.
 when the loop ends, `startCycle` *state* will be triggered and the current active loops will be played.  
-This will continue until the stop button is pressed and `isPlaying` state will be set to `false`.
+This will continue until the stop button is pressed and will cause the state `isPlaying = false`.
 
-* app.js is a local server used to serve the static html file after build with reverse proxy from Nginx.
+* `app.js` is a local server used to serve the static html file after build with reverse proxy from Nginx.
 
 ## Get Started
 

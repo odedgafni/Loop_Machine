@@ -9,15 +9,17 @@ import { sounds as INITIAL_STATE } from './sounds';
 
 function App() {
 
+  // loops is an array of all the sounds (sounds.js) 
   const [loops, setLoops] = useState(INITIAL_STATE);
   const [recordings, setRecordings] = useState([])
 
   const [isRecording, setIsRecording] = useState(false)
   const [isPlaying, setIsPlaying] = useState(false);
 
+  // 'startCycle' will trigger the 'playLoops' function on each change
   const [startCycle, setStartCycle] = useState(false);
 
-  // Keeps playing loops whenever 'startCycle' is triggered
+  // Whenever 'startCycle' is triggered play all active loops
   useEffect(() => {
     playLoops(loops)
   }, [startCycle])
@@ -33,15 +35,16 @@ function App() {
     }
   }, [isPlaying])
 
-
   const playLoops = (loops) => {
-    // Filtering only the active loops
+    // Filter only the active loops
     const activeLoops = loops.filter(loop => loop.isActive === true)
     // If recording add the active loops of the current cycle to 'recordings'
     isRecording && activeLoops && setRecordings([...recordings, activeLoops])
 
+    // Loop through the active loops and play them
     activeLoops.forEach(loop => {
       loop.audio.play()
+      // When the loop ends trigger 'startCycle'
       loop.audio.onended = () => setStartCycle(!startCycle)
     })
   }
@@ -53,13 +56,14 @@ function App() {
     })
   }
 
-  // Mapping through the entire state to change the 'isActive' property of the selected loop/sound
+  // The function receives as a sound/loop parameter and makes him active/not active
   const handlePadClick = (sound) => {
+    // Map through the entire state to change the 'isActive' property of the selected loop/sound
     setLoops(loops.map(loop => loop.id === sound.id ?
       { ...loop, isActive: !loop.isActive } : loop))
   }
 
-  // The function recieves as a paramater the current recording cycle.
+  // The function receives as a parameter the current recording cycle.
   // Each cycle, it plays the relevant loops and calls itself until reaches the last loop
   const playOneRecordingCycle = (cycle) => {
     if (cycle - 1 < recordings.length)

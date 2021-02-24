@@ -1,5 +1,7 @@
 ## About This Project
 
+Check it out: [The Website](https://bit.ly/3uwN9sO)
+
 ### General Information
 
 *Loop Machine* is a simple application that allows the user to select sounds and play them in a loop.  

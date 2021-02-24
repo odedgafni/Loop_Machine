@@ -1,6 +1,6 @@
 ## About This Project
 
-Check it out: [The Website](https://bit.ly/3uwN9sO)
+[Check out the website](https://bit.ly/3uwN9sO)
 
 ### General Information
 

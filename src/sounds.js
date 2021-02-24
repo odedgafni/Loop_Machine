@@ -46,7 +46,7 @@ export const sounds = [
     id: 6
   },
   {
-    name: "Drum2",
+    name: "Drum 2",
     audio: new Audio(stompy_drums),
     isActive: false,
     id: 7

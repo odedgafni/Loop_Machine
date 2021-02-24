@@ -9,7 +9,7 @@ const Pad = ({ sound, handlePadClick }) => {
   return (
     <div className="col col-3 m-2 mt-3">
       <button className={`pad w-100 h-100 ${pad_style}`}
-        onClick={() => handlePadClick(sound)}>
+        onClick={() => handlePadClick(sound)} >
           {sound.name}
       </button >
     </div >

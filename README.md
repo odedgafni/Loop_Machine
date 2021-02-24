@@ -6,22 +6,24 @@
 
 *Loop Machine* is a simple application that allows the user to select sounds and play them in a loop.  
 At the begining of each loop cycle the music will change according to the selection of sounds by the user.  
-The user can play and record the sequences he created.
+The user can play and record the created sequences.
+
+### Tech Stack
 
 The project was created with **React.js** as a single page web application.
 
-For the layout and styles I used **Bootstrap** and **CSS**.
+For the responsive grid and styles **Bootstrap** and **CSS** is used.
 
-For hosting service I used **AWS** EC2 instance.
+For hosting service **AWS** EC2 instance is used.
 
-### Technical Information
+### Technical Details
 
 * The main file is `App.js`, it contains all the logic of the application and renders two components `Pad` and `TransportButtons`.  
-These components has no logic except of some dynamic styling and 'onClick' events that fires functions they receive as props.
+These components are mainly serve dynamic styling and 'onClick' events that fires functions they receive as props.
 
 * The `loops` *state* is initialized as an array of sound objects imported from `sounds.js` and can easily be replaced for data from an API.  
 
-* 'loop' and 'sound' are both used in the code but refer to the same sound object.
+* 'loop' and 'sound' arguments are both used in the code but refer to the same sound object.
 
 * Whenever a user selects a sound, the `loops` *state* will update the `isActive` property of the specific sound.  
 

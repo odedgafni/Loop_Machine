@@ -1,13 +1,13 @@
-import React from 'react'
+import React from 'react';
+import Constants from '../Constants';
 import './components.css';
 
 const TransportButtons = ({ setIsPlaying, setIsRecording, isRecording, isPlaying }) => {
 
   // Dynamic Styling
-  const record_style = isRecording ? "btn_active" : "btn_off"
-  console.log(isRecording)
-  const play_style = isPlaying ? "" : "btn_active"
-  const stop_style = isPlaying ? "btn_active" : ""
+  const record_style = isRecording ? Constants.btn_active : Constants.btn_off
+  const play_style = isPlaying ? "" : Constants.btn_active
+  const stop_style = isPlaying ? Constants.btn_active : ""
 
   return (
     <div className="mt-5">
@@ -32,7 +32,6 @@ const TransportButtons = ({ setIsPlaying, setIsRecording, isRecording, isPlaying
         </div>
       </div>
     </div>
-
   )
 }
 

@@ -1,3 +1,32 @@
-.t-btn {
-  outline: none;
+body  {
+  height: 100vh;
+  /* background: linear-gradient(to right top, #9de2d6, #96dce7); */
+  background: linear-gradient(to right top, #86e9eb, #3f909c);
+}
+
+.App {
+  background: linear-gradient(to right bottom, rgba(255,255,255,0.8), rgba(255,255,255,0.5));
+  border-radius: 2rem;
+  font-family: Roboto;
+}
+
+.circle1, .circle2 {
+  
+  position: absolute;
+  border-radius: 50%;
+  z-index: -1;
+}
+.circle1 {
+background: linear-gradient(to left bottom, rgba(255,255,255,0.9), rgba(255,255,255,0));
+height: 15rem;
+width: 15rem;
+top: 2%;
+right: 1%;
+}
+.circle2 {
+background: linear-gradient(to right top, rgba(255,255,255,0.7), rgba(255,255,255,0));
+height: 18rem;
+width: 18rem;
+bottom: 8%;
+left: 6%;
 }

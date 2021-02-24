@@ -14,6 +14,7 @@ function App() {
 
   const [isRecording, setIsRecording] = useState(false)
   const [isPlaying, setIsPlaying] = useState(false);
+
   const [startCycle, setStartCycle] = useState(false);
 
   // Keeps playing loops whenever 'startCycle' is triggered
@@ -37,7 +38,7 @@ function App() {
     // Filtering only the active loops
     const activeLoops = loops.filter(loop => loop.isActive === true)
     // If recording add the active loops of the current cycle to 'recordings'
-    isRecording && setRecordings([...recordings, activeLoops])
+    isRecording && activeLoops && setRecordings([...recordings, activeLoops])
 
     activeLoops.forEach(loop => {
       loop.audio.play()
@@ -58,44 +59,52 @@ function App() {
       { ...loop, isActive: !loop.isActive } : loop))
   }
 
-  // The function recieves as a param the current recording cycle.
-  // Each cycle it plays the relevant loops and calls itself until reaches the last loop
+  // The function recieves as a paramater the current recording cycle.
+  // Each cycle, it plays the relevant loops and calls itself until reaches the last loop
   const playOneRecordingCycle = (cycle) => {
     if (cycle - 1 < recordings.length)
       recordings[cycle - 1].forEach(loop => {
         loop.audio.play()
-        console.log(cycle, recordings.length)
         loop.audio.onended = () => playOneRecordingCycle(cycle + 1)
       })
   }
 
   return (
-    <div className="App">
-      <div className="container mt-5">
-        <div className="row justify-content-center text-center">
-          {loops.map(sound =>
-            <Pad
-              key={sound.id}
-              sound={sound}
-              handlePadClick={handlePadClick} />
-          )}
-        </div>
-        <div className="row justify-content-center text-center">
-          <TransportButtons
-            setIsPlaying={setIsPlaying}
-            isRecording={isRecording}
-            setIsRecording={setIsRecording}
-            recordings={recordings} />
-        </div>
-        <div className="row">
-          {!isRecording && recordings.length > 0 &&
-            <button className="t-btn btn btn-outline-info col-4 offset-4 mt-3"
+    <div className="App container shadow mt-5">
+      <div className="row justify-content-center text-center">
+        {loops.map(sound =>
+          <Pad
+            key={sound.id}
+            sound={sound}
+            handlePadClick={handlePadClick} />
+        )}
+      </div>
+      <div className="row justify-content-center text-center">
+        <TransportButtons
+          isPlaying={isPlaying}
+          setIsPlaying={setIsPlaying}
+          isRecording={isRecording}
+          setIsRecording={setIsRecording} />
+      </div>
+      {!isRecording && recordings.length > 0 &&
+        <div className="row justify-content-center mt-4">
+          <div className="col col-3 text-center">
+            <button className="btn btn-outline-info btn-lg mb-4"
               onClick={() => playOneRecordingCycle(1)}>
               <i className="fas fa-play"></i> Play Recording
-            </button>}
+            </button>
+          </div>
+          <div className="col col-3 text-center">
+            <button className="btn btn-outline-info btn-lg mb-4"
+              onClick={() => setRecordings([])}>
+              <i className="fas fa-trash"></i> Clear Recording
+            </button>
+          </div>
         </div>
-      </div>
-    </div >
+      }
+      <div className="circle1"></div>
+      <div className="circle2"></div>
+    </div>
   );
 }
 

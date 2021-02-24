@@ -1,0 +1,65 @@
+.pad {
+  color: white;
+  font-size: 17px;
+  height: 61px;
+  line-height: 55px;
+  margin: 10px 5px 0 2px;
+  background: #337d88;
+}
+.pad_on {
+  color: black;
+  background: linear-gradient(to left bottom, rgba(190, 247, 253, 0.6), rgba(31, 126, 133, 0.3));
+  box-shadow: 0 0 0 1px darkslategray, 0 0 0 4px rgba(255, 255, 255, 0.15), 0 2px 0 0 darkslategray, 0 2px 0 1px rgba(0, 0, 0, 0.4), 0 4px 4px 1px rgba(0, 0, 0, 0.5);
+  border: #50727a;
+  border-radius: 6px;
+  position: relative;
+  top: 2px;
+}
+.pad_off {
+  box-shadow: 0 0 0 1px darkslategray, 0 0 0 2px rgba(255, 255, 255, 0.15), 0 4px 0 0 darkslategray, 0 4px 0 1px rgba(0, 0, 0, 0.4), 0 4px 4px 1px rgba(0, 0, 0, 0.5);
+  border-radius: 6px;
+}
+.pad:hover {
+  position: relative;
+  bottom: 1px;
+}
+
+.btn:focus {
+  outline: none;
+  box-shadow: none;
+}
+.t_btn {
+  background-color: #dd4747;
+  border-radius: 6px;
+  box-shadow: 0 0 0 1px #8b1d1d, 0 0 0 2px rgba(255, 255, 255, 0.15), 0 4px 0 0 #973333, 0 4px 0 1px rgba(0, 0, 0, 0.4), 0 4px 4px 1px rgba(0, 0, 0, 0.5);
+  color: white;
+  height: 61px;
+  line-height: 50px;
+  margin: 5px;
+  width: 15vh;
+  }
+
+  .t_btn:hover {
+  color: white;
+  }
+ 
+  .btn_active {
+  background-color: #af3333;
+  top: 4px;
+  box-shadow: 0 0 0 1px #721616 inset,0 0 0 2px rgba(255, 255, 255, 0.15) inset,0 0 0 0      #973333,0 0 0 1px rgba(0, 0, 0, 0.4),0 0px 8px 1px rgba(0, 0, 0, 0.5);
+  }
+
+  .btn_off {
+    
+    background-color: #dd4747;
+    bottom: 4px;
+    outline: none;
+    border: none;
+  }
+
+  .record {
+    position: relative;
+    top: 4px
+  }
+
+ 

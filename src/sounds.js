@@ -10,13 +10,13 @@ import tangu_groove from './samples/tangu_groove.mp3';
 
 export const sounds = [
   {
-    name: "Breakbeats",
+    name: "Breaks",
     audio: new Audio(stutter_breakbeats),
     isActive: false,
     id: 1
   },
   {
-    name: "Drums",
+    name: "Drum 1",
     audio: new Audio(drums),
     isActive: false,
     id: 2
@@ -46,7 +46,7 @@ export const sounds = [
     id: 6
   },
   {
-    name: "Big Drums",
+    name: "Drum2",
     audio: new Audio(stompy_drums),
     isActive: false,
     id: 7
